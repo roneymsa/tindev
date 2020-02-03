@@ -3,7 +3,11 @@ import { KeyboardAvoidingView, Platform, View, Text, StyleSheet, Image, TextInpu
 
 import logo from '../assets/logo.png';
 
-export default function Login() {
+export default function Login({ navigation }) {
+    function handleLogin() {
+        navigation.navigate('Main');
+    }
+
     return (
         <KeyboardAvoidingView 
         behavior="padding"
@@ -19,7 +23,7 @@ export default function Login() {
             style={styles.input}
             />
 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity onPress={handleLogin} style={styles.button}>
                 <Text style={styles.buttonText}>Enviar</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
