@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform, View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 
 import logo from '../assets/logo.png';
 
+import api from '../services/api';
+
 export default function Login({ navigation }) {
-    function handleLogin() {
-        navigation.navigate('Main');
+    const [user, setUser] = useState('');
+
+    async function handleLogin() {
+        const response = await api.post('/devs', { username: user });
+        
+        const { _id } = response.data;
+        console.log( _id );
+        navigation.navigate('Main', { _id });
     }
 
     return (
@@ -21,6 +29,8 @@ export default function Login({ navigation }) {
             placeholder="Digite seu usuário no Github"
             placeholderTextColor="#999" 
             style={styles.input}
+            value={user}
+            onChangeText={setUser}
             />
 
             <TouchableOpacity onPress={handleLogin} style={styles.button}>
